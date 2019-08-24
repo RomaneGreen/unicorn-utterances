@@ -1,7 +1,7 @@
 import React, { useRef } from "react"
 import Image from "gatsby-image"
 import styles from "./post-metadata.module.scss"
-import { Link } from "gatsby"
+import TransitionLink  from "gatsby-plugin-transition-link"
 
 export const PostMetadata = ({ post }) => {
   const { author } = post.frontmatter
@@ -13,9 +13,20 @@ export const PostMetadata = ({ post }) => {
         <Image className="circleImg" fixed={author.profileImg.childImageSharp.mediumPic}/>
       </div>
       <div className={styles.textDiv}>
-        <Link to={`/unicorns/${author.id}`} ref={authorLinkRef} className={styles.authorLink}>
+        <TransitionLink
+          to={`/unicorns/${author.id}`}
+          ref={authorLinkRef}
+          className={styles.authorLink}
+          entry={{
+            state: { isEntryPage: true }
+          }}
+          exit={{
+            length: .6,
+            state: { isEntryPage: false },
+          }}
+        >
           <h2 className={styles.authorName}>{author.name}</h2>
-        </Link>
+        </TransitionLink>
         <div className={styles.belowName}>
           <p className={styles.date}>{post.frontmatter.published}</p>
           <p className={styles.wordCount}>{post.wordCount.words} words</p>

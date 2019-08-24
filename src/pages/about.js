@@ -4,7 +4,8 @@ import { Layout } from "../components/layout/layout"
 import { SEO } from "../components/seo"
 import Image from "gatsby-image"
 import style from "./about.module.scss"
-import {navigate} from '@reach/router';
+import { navigate } from "@reach/router"
+import TransitionLink from "gatsby-plugin-transition-link"
 
 const AboutUs = (props) => {
   const { data: { markdownRemark } } = props
@@ -67,7 +68,18 @@ const AboutUs = (props) => {
                   <Image className="circleImg" fixed={unicornInfo.profileImg.childImageSharp.mediumPic}/>
                 </div>
                 <div className={style.nameRoleDiv}>
-                  <Link to={`/unicorns/${unicornInfo.id}`}>{unicornInfo.name}</Link>
+                  <TransitionLink
+                    to={`/unicorns/${unicornInfo.id}`}
+                    entry={{
+                      state: { isEntryPage: true },
+                    }}
+                    exit={{
+                      length: .6,
+                      state: { isEntryPage: false },
+                    }}
+                  >
+                    {unicornInfo.name}
+                  </TransitionLink>
                   <ul aria-label="Roles assigned to this user" className={style.rolesList}>
                     {unicornInfo.roles.map((role, i) => (
                       <li key={role.id}>

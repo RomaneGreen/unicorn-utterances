@@ -61,6 +61,7 @@ body {
   font-family: var(--archivo);
   color: var(--black);
   transition: color var(--animStyle) var(--animSpeed), background-color var(--animStyle) var(--animSpeed);
+  margin: 0;
 }
 
 h1, h2, h3 {

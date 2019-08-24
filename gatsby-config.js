@@ -236,7 +236,8 @@ module.exports = {
         },
       },
     },
-    `gatsby-plugin-sitemap`
+    `gatsby-plugin-sitemap`,
+    `gatsby-plugin-transition-link`
   ],
   mapping: {
     "MarkdownRemark.frontmatter.author": `UnicornsJson`,

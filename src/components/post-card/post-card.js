@@ -3,6 +3,7 @@ import { Link } from "gatsby"
 import cardStyles from "./post-card.module.scss"
 import Image from "gatsby-image"
 import { stopPropCallback } from "../../utils/preventCallback"
+import TransitionLink from "gatsby-plugin-transition-link"
 
 export const PostCard = ({ title, author, published, tags, excerpt, description, className, slug }) => {
   const headerLink = useRef()
@@ -10,14 +11,21 @@ export const PostCard = ({ title, author, published, tags, excerpt, description,
   return (
     <div className={`${cardStyles.card} ${className}`} onClick={() => headerLink.current.click()}>
       <div className={cardStyles.cardContents}>
-        <Link
+        <TransitionLink
           to={`/posts${slug}`}
           onClick={stopPropCallback}
           className="unlink"
+          entry={{
+            state: { isEntryPage: true }
+          }}
+          exit={{
+            state: { isEntryPage: false },
+            length: .6
+          }}
         >
           <h2 className={cardStyles.header} ref={headerLink}
           >{title}</h2>
-        </Link>
+        </TransitionLink>
         <p className={cardStyles.authorName}
            onClick={(e) => {
              stopPropCallback(e)
